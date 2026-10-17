@@ -1,0 +1,6 @@
+﻿# bin文件
+bin/
+obj/
+.run/
+# git文件
+.git/
