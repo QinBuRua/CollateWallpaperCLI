@@ -68,12 +68,12 @@ public class Scanner
                         return;
                     }
 
-                    Console.Error.WriteLine($"Missing Error \"{result}\" while copying {processResult.SourceFile} to {Path.Combine(OutputDirectory.FullName, processResult.TargetFileName!)}.");
+                    Console.Error.WriteLine($"Meeting Error \"{result}\" while copying {processResult.SourceFile} to {Path.Combine(OutputDirectory.FullName, processResult.TargetFileName!)}.");
                     return;
                 case ProcessResultType.InvalidJson:
                 case ProcessResultType.InvalidProjectFormat:
                 default:
-                    Console.Error.WriteLine($"Missing Error \"{processResult.Type}\" while processing \"{projectPath}\"");
+                    Console.Error.WriteLine($"Meeting Error \"{processResult.Type}\" while processing \"{projectPath}\"");
                     ErrorCount++;
                     return;
             }
