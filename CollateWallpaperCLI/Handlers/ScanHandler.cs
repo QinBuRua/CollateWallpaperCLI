@@ -23,6 +23,8 @@ public class ScanHandler
             };
             
             scanner.Run();
+            
+            Console.WriteLine($"Copy {scanner.SuccessCount} files. Skip {scanner.SkipCount} projects. Miss {scanner.ErrorCount} errors.");
         }
         catch (Exception e)
         {
