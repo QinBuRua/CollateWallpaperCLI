@@ -11,6 +11,7 @@ public class Scanner
     public required bool WithCover { get; set; }
 
     public uint SkipCount { get; set; }
+    public uint ErrorCount { get; set; }
     public uint SuccessCount { get; set; }
 
     public void Run()
@@ -36,13 +37,22 @@ public class Scanner
         {
             var processResult = ProcessProjectHelper.ProcessProject(new FileInfo(projectPath));
 
-            if (processResult.Type == ProcessResultType.Skip)
+            switch (processResult.Type)
             {
-                SkipCount++;
-                return;
+                case ProcessResultType.Skip:
+                    SkipCount++;
+                    return;
+                case ProcessResultType.Copy:
+                    VideoCopyHelper.Copy(processResult.SourceFile!, processResult.TargetFileName!, OutputDirectory);
+                    SuccessCount++;
+                    return;
+                case ProcessResultType.InvalidJson:
+                case ProcessResultType.InvalidProjectFormat:
+                default:
+                    Console.Error.WriteLine($"Missing Error \"{processResult.Type}\" while processing \"{projectPath}\"");
+                    ErrorCount++;
+                    return;
             }
-            
-            
         }
     }
 }
