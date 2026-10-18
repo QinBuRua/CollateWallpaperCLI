@@ -24,7 +24,7 @@ public class RootCommandFactory
 
     private readonly Option<bool> _withCover = new("--with-cover", "-c")
     {
-        Description = "Make the video cover (off by default)"
+        Description = "Make the video cover (off by default) (TODO)"
     };
 
     private RootCommandFactory()
