@@ -26,7 +26,7 @@ public class ScanHandler
         }
         catch (Exception e)
         {
-            Console.Error.WriteLine($"Error: {e.Message}");
+            Console.Error.WriteLine($"Unexpected Exception: {e.Message}");
             return e.HResult;
         }
 
