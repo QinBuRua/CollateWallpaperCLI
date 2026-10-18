@@ -1,6 +1,13 @@
-﻿using CollateWallpaperCLI.Infrastructure;
+﻿using System.Diagnostics.CodeAnalysis;
+using CollateWallpaperCLI.Infrastructure;
 
 namespace CollateWallpaperCLI.Services;
+
+public enum ScannerRunException
+{
+    InputDirectoryNotFound,
+    OutputDirectoryOccupied
+}
 
 public class Scanner
 {
@@ -14,13 +21,24 @@ public class Scanner
     public uint ErrorCount { get; set; }
     public uint SuccessCount { get; set; }
 
-    public void Run()
+    public bool Run([NotNullWhen(false)] out ScannerRunException? expectedException)
     {
-        if (!InputDirectory.Exists) throw new DirectoryNotFoundException(InputDirectory.Name);
+        if (!Directory.Exists(InputDirectory.FullName))
+        {
+            expectedException = ScannerRunException.InputDirectoryNotFound;
+            return false;
+        }
 
-        if (FileSystemHelper.ExistFileOrDirectory(OutputDirectory.FullName)) throw new IOException($"{OutputDirectory.Name} already exists a file or directory.");
+        if (File.Exists(OutputDirectory.FullName))
+        {
+            expectedException = ScannerRunException.OutputDirectoryOccupied;
+            return false;
+        }
 
         Scan(InputDirectory);
+        
+        expectedException = null;
+        return true;
     }
 
     private void Scan(DirectoryInfo directory)

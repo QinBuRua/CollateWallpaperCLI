@@ -34,8 +34,8 @@ public class ProcessProjectHelper
 
     private static bool ShouldCopy(Dictionary<string, string?> jsonDic)
     {
-        var isVideo = string.Equals(jsonDic["type"], "video", StringComparison.OrdinalIgnoreCase);
-        var isAdult = string.Equals(jsonDic["type"], "mature", StringComparison.OrdinalIgnoreCase);
+        var isVideo = string.Equals(jsonDic.GetValueOrDefault("type"), "video", StringComparison.OrdinalIgnoreCase);
+        var isAdult = string.Equals(jsonDic.GetValueOrDefault("contentrating"), "mature", StringComparison.OrdinalIgnoreCase);
         return isAdult && isVideo;
     }
 

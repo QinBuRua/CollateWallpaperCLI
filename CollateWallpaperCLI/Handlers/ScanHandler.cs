@@ -21,9 +21,9 @@ public class ScanHandler
                 Recursive = recursive,
                 WithCover = withCover
             };
-            
-            scanner.Run();
-            
+
+            if (!scanner.Run(out var expectedException)) Console.Error.WriteLine($"Meeting an exception while preparing scan: {expectedException}");
+
             Console.WriteLine($"Copy {scanner.SuccessCount} files. Skip {scanner.SkipCount} projects. Miss {scanner.ErrorCount} errors.");
         }
         catch (Exception e)
