@@ -5,6 +5,7 @@ public enum CopyResultType
     Success,
     MissingSourceFile,
     TargetFileHasExisted,
+    FailToCreateDirectory,
     UnknownIOError
 }
 
@@ -14,16 +15,26 @@ public static class VideoCopyHelper
     {
         try
         {
-            if (!sourceFile.Exists) return CopyResultType.MissingSourceFile;
+            if (!File.Exists(sourceFile.FullName)) return CopyResultType.MissingSourceFile;
 
             var targetFile = new FileInfo(Path.Combine(targetDirectory.FullName, targetFileName));
-            if (targetFile.Exists) return CopyResultType.TargetFileHasExisted;
+            if (File.Exists(targetFile.FullName)) return CopyResultType.TargetFileHasExisted;
+
+            if (!Directory.Exists(targetDirectory.FullName))
+                try
+                {
+                    Directory.CreateDirectory(targetDirectory.FullName);
+                }
+                catch (Exception _)
+                {
+                    return CopyResultType.FailToCreateDirectory;
+                }
 
             File.Copy(sourceFile.FullName, targetFile.FullName, false);
 
             return CopyResultType.Success;
         }
-        catch (IOException e)
+        catch (IOException _)
         {
             return CopyResultType.UnknownIOError;
         }
