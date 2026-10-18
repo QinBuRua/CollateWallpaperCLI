@@ -2,11 +2,9 @@
 
 namespace CollateWallpaperCLI.Handlers;
 
-public class ScanHandler
+public static class ScanHandler
 {
-    public static ScanHandler Default => field ??= new ScanHandler();
-
-    public int Run(
+    public static int Run(
         DirectoryInfo inputDirectory,
         DirectoryInfo outputDirectory,
         bool recursive,

@@ -55,7 +55,7 @@ public class RootCommandFactory
         var withCover = parseResult.GetValue(_withCover);
         var quietSkip = parseResult.GetValue(_quietSkip);
 
-        return ScanHandler.Default.Run(input, output, recursive, withCover, quietSkip);
+        return ScanHandler.Run(input, output, recursive, withCover, quietSkip);
     }
 
     public int ParseAndRun(string[] args)
