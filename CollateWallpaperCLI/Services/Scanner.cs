@@ -35,6 +35,12 @@ public class Scanner
         else
         {
             var processResult = ProcessProjectHelper.ProcessProject(new FileInfo(projectPath));
+
+            if (processResult.Type == ProcessResultType.Skip)
+            {
+                SkipCount++;
+                return;
+            }
             
             
         }
