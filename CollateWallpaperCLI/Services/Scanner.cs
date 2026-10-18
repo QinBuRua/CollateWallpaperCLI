@@ -43,8 +43,14 @@ public class Scanner
                     SkipCount++;
                     return;
                 case ProcessResultType.Copy:
-                    VideoCopyHelper.Copy(processResult.SourceFile!, processResult.TargetFileName!, OutputDirectory);
-                    SuccessCount++;
+                    var result = VideoCopyHelper.Copy(processResult.SourceFile!, processResult.TargetFileName!, OutputDirectory);
+                    if (result == CopyResultType.Success)
+                    {
+                        SuccessCount++;
+                        return;
+                    }
+
+                    Console.Error.WriteLine($"Missing Error \"{result}\" while copying {processResult.SourceFile} to {Path.Combine(OutputDirectory.FullName, processResult.TargetFileName!)}.");
                     return;
                 case ProcessResultType.InvalidJson:
                 case ProcessResultType.InvalidProjectFormat:
