@@ -10,7 +10,8 @@ public class ScanHandler
         DirectoryInfo inputDirectory,
         DirectoryInfo outputDirectory,
         bool recursive,
-        bool withCover)
+        bool withCover,
+        bool quietSkip)
     {
         try
         {
@@ -19,12 +20,13 @@ public class ScanHandler
                 InputDirectory = inputDirectory,
                 OutputDirectory = outputDirectory,
                 Recursive = recursive,
-                WithCover = withCover
+                WithCover = withCover,
+                QuietSkip = quietSkip
             };
 
             if (!scanner.Run(out var expectedException)) Console.Error.WriteLine($"Meeting an exception while preparing scan: {expectedException}");
 
-            Console.WriteLine($"Copy {scanner.SuccessCount} files. Skip {scanner.SkipCount} projects. Miss {scanner.ErrorCount} errors.");
+            Console.WriteLine($"Copy {scanner.SuccessCount} files. Skip {scanner.SkipCount} projects. Met {scanner.WarnCount} warnings and {scanner.ErrorCount} errors.");
         }
         catch (Exception e)
         {

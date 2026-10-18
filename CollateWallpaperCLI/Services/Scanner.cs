@@ -16,9 +16,11 @@ public class Scanner
     public required DirectoryInfo OutputDirectory { get; set; }
     public required bool Recursive { get; set; }
     public required bool WithCover { get; set; }
+    public required bool QuietSkip { get; set; }
 
     public uint SkipCount { get; set; }
     public uint ErrorCount { get; set; }
+    public uint WarnCount { get; set; }
     public uint SuccessCount { get; set; }
 
     public bool Run([NotNullWhen(false)] out ScannerRunException? expectedException)
@@ -36,7 +38,7 @@ public class Scanner
         }
 
         Scan(InputDirectory);
-        
+
         expectedException = null;
         return true;
     }
@@ -68,15 +70,32 @@ public class Scanner
                         return;
                     }
 
-                    Console.Error.WriteLine($"Meeting Error \"{result}\" while copying {processResult.SourceFile} to {Path.Combine(OutputDirectory.FullName, processResult.TargetFileName!)}.");
+                    var targetFilePath = Path.Combine(OutputDirectory.FullName, processResult.TargetFileName!);
+
+                    if (result == CopyResultType.TargetFileHasExisted)
+                        Warn($"Meeting Warn \"{result}\" while copying {processResult.SourceFile} to {targetFilePath}.");
+                    else
+                        Error($"Met Error \"{result}\" while copying {processResult.SourceFile} to {targetFilePath}.");
+
                     return;
                 case ProcessResultType.InvalidJson:
                 case ProcessResultType.InvalidProjectFormat:
                 default:
-                    Console.Error.WriteLine($"Meeting Error \"{processResult.Type}\" while processing \"{projectPath}\"");
-                    ErrorCount++;
+                    Error($"Meeting Error \"{processResult.Type}\" while processing \"{projectPath}\"");
                     return;
             }
         }
+    }
+
+    private void Warn(string message)
+    {
+        if (!QuietSkip) Console.WriteLine(message);
+        WarnCount++;
+    }
+
+    private void Error(string message)
+    {
+        if (!QuietSkip) Console.Error.WriteLine(message);
+        ErrorCount++;
     }
 }

@@ -17,6 +17,11 @@ public class RootCommandFactory
         Required = true
     };
 
+    private readonly Option<bool> _quietSkip = new("--quiet-skip", "-q")
+    {
+        Description = "Quietly skip any error while scanning and copying (off by default)"
+    };
+
     private readonly Option<bool> _recursiveOption = new("--recursive", "-r")
     {
         Description = "Search subdirectories recursively (off by default)"
@@ -33,6 +38,7 @@ public class RootCommandFactory
         Root.Options.Add(_outputDirectoryOption);
         Root.Options.Add(_recursiveOption);
         Root.Options.Add(_withCover);
+        Root.Options.Add(_quietSkip);
 
         Root.SetAction(RunAction);
     }
@@ -47,8 +53,9 @@ public class RootCommandFactory
         var output = parseResult.GetValue(_outputDirectoryOption)!;
         var recursive = parseResult.GetValue(_recursiveOption);
         var withCover = parseResult.GetValue(_withCover);
-        
-        return ScanHandler.Default.Run(input, output, recursive, withCover);
+        var quietSkip = parseResult.GetValue(_quietSkip);
+
+        return ScanHandler.Default.Run(input, output, recursive, withCover, quietSkip);
     }
 
     public int ParseAndRun(string[] args)
