@@ -15,8 +15,4 @@
       <PackageReference Include="System.CommandLine" Version="2.0.12" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="StartUp\" />
-    </ItemGroup>
-
 </Project>

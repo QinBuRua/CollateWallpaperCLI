@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 
-namespace CollateWallpaperCLI.Infrastructure;
+namespace CollectWallpaperCLI.Infrastructure;
 
 public class ProcessProjectHelper
 {

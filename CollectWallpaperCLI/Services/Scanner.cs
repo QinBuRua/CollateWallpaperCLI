@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using CollateWallpaperCLI.Infrastructure;
+using CollectWallpaperCLI.Infrastructure;
 
-namespace CollateWallpaperCLI.Services;
+namespace CollectWallpaperCLI.Services;
 
 public enum ScannerRunException
 {

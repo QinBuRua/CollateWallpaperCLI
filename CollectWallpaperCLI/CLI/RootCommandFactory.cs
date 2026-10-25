@@ -1,7 +1,7 @@
 ﻿using System.CommandLine;
-using CollateWallpaperCLI.Handlers;
+using CollectWallpaperCLI.Handlers;
 
-namespace CollateWallpaperCLI.CLI;
+namespace CollectWallpaperCLI.CLI;
 
 public class RootCommandFactory
 {

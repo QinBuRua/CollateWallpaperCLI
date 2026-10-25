@@ -1,6 +1,6 @@
-﻿using CollateWallpaperCLI.Services;
+﻿using CollectWallpaperCLI.Services;
 
-namespace CollateWallpaperCLI.Handlers;
+namespace CollectWallpaperCLI.Handlers;
 
 public static class ScanHandler
 {

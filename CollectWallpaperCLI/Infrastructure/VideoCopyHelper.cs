@@ -1,4 +1,4 @@
-﻿namespace CollateWallpaperCLI.Infrastructure;
+﻿namespace CollectWallpaperCLI.Infrastructure;
 
 public enum CopyResultType
 {
@@ -11,7 +11,7 @@ public enum CopyResultType
 
 public static class VideoCopyHelper
 {
-    public static CopyResultType Copy(FileInfo sourceFile, FileInfo? coverFile, string targetFileName, DirectoryInfo targetDirectory)
+    public static CopyResultType Copy(FileInfo sourceFile, FileInfo? coverFile, string targetFileName, DirectoryInfo targetDirectory) //todo
     {
         try
         {

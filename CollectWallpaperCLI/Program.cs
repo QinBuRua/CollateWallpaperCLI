@@ -1,3 +1,3 @@
-﻿using CollateWallpaperCLI.CLI;
+﻿using CollectWallpaperCLI.CLI;
 
 RootCommandFactory.Default.ParseAndRun(args);
