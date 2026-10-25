@@ -63,7 +63,7 @@ public class Scanner
                     SkipCount++;
                     return;
                 case ProcessResultType.Copy:
-                    var result = VideoCopyHelper.Copy(processResult.SourceFile!, processResult.TargetFileName!, OutputDirectory);
+                    var result = VideoCopyHelper.Copy(processResult.SourceFile!, null, processResult.TargetFileName!, OutputDirectory);
                     if (result == CopyResultType.Success)
                     {
                         SuccessCount++;

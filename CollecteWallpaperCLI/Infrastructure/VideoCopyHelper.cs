@@ -11,7 +11,7 @@ public enum CopyResultType
 
 public static class VideoCopyHelper
 {
-    public static CopyResultType Copy(FileInfo sourceFile, string targetFileName, DirectoryInfo targetDirectory)
+    public static CopyResultType Copy(FileInfo sourceFile, FileInfo? coverFile, string targetFileName, DirectoryInfo targetDirectory)
     {
         try
         {
